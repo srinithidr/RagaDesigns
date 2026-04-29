@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import Navbar from "./components/navbar/Navbar"
-import Home from "./pages/Home"
+import Home from "./pages/Home/Home"
 import About from "./pages/About"
 import Contact from "./pages/Contact"
 import WebDevelopment from "./pages/WebDevelopment"
@@ -10,9 +10,9 @@ import "./App.css"
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main>
+      <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
