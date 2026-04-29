@@ -1,35 +1,26 @@
-import { useState } from "react"
+import { useState } from "react";
 import logo from "../../assets/logo2.webp";
-import { Menu, X, ChevronDown, Code, Smartphone, Palette, Layout, Database, Cloud, Shield, Zap, Globe } from "lucide-react"
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Code,
+  Smartphone,
+  Palette,
+  Layout,
+  Database,
+  Cloud,
+  Shield,
+  Zap,
+  Globe,
+} from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuTrigger,
   NavigationMenuContent,
-} from "@/components/ui/navigation-menu"
-import { cn } from "@/lib/utils"
-
-const services = [
-  {
-    title: "Web Development",
-    description: "Custom websites and web applications built with modern technologies",
-    icon: Code,
-    href: "/services/web-development",
-  },
-  {
-    title: "App Development",
-    description: "Native and cross-platform mobile applications for iOS and Android",
-    icon: Smartphone,
-    href: "/services/app-development",
-  },
-  {
-    title: "UI/UX Design",
-    description: "Beautiful and intuitive user interfaces that delight users",
-    icon: Palette,
-    href: "/services/ui-ux-design",
-  },
-]
+} from "@/components/ui/navigation-menu";
 
 // ✅ EXISTING MEGA MENU (unchanged)
 const megaMenuItems = {
@@ -83,7 +74,7 @@ const megaMenuItems = {
     { title: "Business Emails", icon: Cloud, href: "/emails" },
     { title: "SSL Certificate", icon: Shield, href: "/ssl" },
   ],
-}
+};
 
 // ✅ NEW MARKET SERVICES MEGA MENU (ADDED)
 const marketMegaMenuItems = {
@@ -120,7 +111,7 @@ const marketMegaMenuItems = {
     { title: "3D Walk Through & Animation", icon: Zap, href: "/3d-animation" },
     { title: "360 Panoramic View", icon: Globe, href: "/360-view" },
   ],
-}
+};
 
 const navItems = [
     {
@@ -178,12 +169,19 @@ const navItems = [
 },
 
   { title: "Contact", href: "/contact" },
-]
+];
 
 //function for navbar
 function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMegaMenusOpen, setMobileMegaMenusOpen] = useState({});
+
+  const toggleMobileMegaMenu = (title) => {
+    setMobileMegaMenusOpen((prev) => ({
+      ...prev,
+      [title]: !prev[title],
+    }));
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
@@ -198,10 +196,8 @@ function Navbar() {
         <nav className="hidden md:flex">
           <NavigationMenu>
             <NavigationMenuList className="flex gap-1">
-
               {navItems.map((item) => (
                 <NavigationMenuItem key={item.title}>
-
                   {item.hasMegaMenu ? (
 
   <>
@@ -287,70 +283,75 @@ function Navbar() {
 )}
                 </NavigationMenuItem>
               ))}
-
             </NavigationMenuList>
           </NavigationMenu>
         </nav>
 
         {/* Mobile Button */}
-        <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <X /> : <Menu />}
+        <button
+          className="md:hidden p-2 -mr-2"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t p-4">
-
+        <div className="md:hidden border-t p-3 sm:p-4 max-h-[calc(100vh-64px)] overflow-y-auto">
           {navItems.map((item) => (
             <div key={item.title}>
-
               {item.hasMegaMenu ? (
                 <>
                   <button
-                    className="flex justify-between w-full py-2"
-                    onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                    className="flex justify-between w-full py-2 text-left"
+                    onClick={() => toggleMobileMegaMenu(item.title)}
                   >
                     {item.title}
-                    <ChevronDown />
+                    <ChevronDown
+                      className={`h-4 w-4 transition-transform ${mobileMegaMenusOpen[item.title] ? "rotate-180" : ""}`}
+                    />
                   </button>
 
-                  {mobileServicesOpen && (
-                    <div className="pl-4">
-
+                  {mobileMegaMenusOpen[item.title] && (
+                    <div className="pl-4 mt-2">
                       {/* ✅ CONDITION ADDED */}
                       {Object.entries(
                         item.title === "Market Services"
                           ? marketMegaMenuItems
-                          : megaMenuItems
+                          : megaMenuItems,
                       ).map(([category, items]) => (
-
-                        <div key={category}>
-                          <p className="text-xs font-semibold">{category}</p>
+                        <div key={category} className="mb-4">
+                          <p className="text-sm font-semibold text-primary mb-2">
+                            {category}
+                          </p>
 
                           {items.map((item) => (
-                            <a key={item.title} href={item.href} className="block py-1 text-sm">
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              className="block py-2 pl-2 text-sm hover:bg-muted rounded"
+                            >
                               {item.title}
                             </a>
                           ))}
                         </div>
-
                       ))}
-
                     </div>
                   )}
                 </>
               ) : (
-                <a href={item.href} className="block py-2">{item.title}</a>
+                <a href={item.href} className="block py-2">
+                  {item.title}
+                </a>
               )}
-
             </div>
           ))}
-
         </div>
       )}
     </header>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
