@@ -17,6 +17,24 @@
   }
 }
 
+/* Custom dropdown hover styles for navbar */
+.company-dropdown,
+.products-dropdown,
+.mobile-apps-dropdown,
+.portfolio-dropdown,
+.career-dropdown {
+  display: none;
+}
+
+/* Show dropdown only when hovering specific container */
+.dropdown-container-company:hover > .company-dropdown,
+.dropdown-container-products:hover > .products-dropdown,
+.dropdown-container-mobile-apps:hover > .mobile-apps-dropdown,
+.dropdown-container-portfolio:hover > .portfolio-dropdown,
+.dropdown-container-career:hover > .career-dropdown {
+  display: block;
+}
+
 .hero {
   position: relative;
 
