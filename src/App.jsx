@@ -1,11 +1,8 @@
 import { Routes, Route } from "react-router-dom"
 import Navbar from "./components/navbar/Navbar"
 import Home from "./pages/Home/Home"
-import About from "./pages/About"
-import Contact from "./pages/Contact"
-import WebDevelopment from "./pages/WebDevelopment"
-import AppDevelopment from "./pages/AppDevelopment"
-import UIUXDesign from "./pages/UIUXDesign"
+import NotFound from "./pages/NotFound"
+import SiteFooter from "./components/footer/SiteFooter"
 import "./App.css"
 
 function App() {
@@ -15,20 +12,10 @@ function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/services/web-development" element={<WebDevelopment />} />
-          <Route path="/services/app-development" element={<AppDevelopment />} />
-          <Route path="/services/ui-ux-design" element={<UIUXDesign />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      
-      {/* Footer */}
-      <footer className="py-8 px-4 border-t">
-        <div className="container mx-auto text-center text-sm text-muted-foreground">
-          <p>© 2026 RagaDesign. All rights reserved.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

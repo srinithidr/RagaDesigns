@@ -1,5 +1,5 @@
-import image1 from "../hero/sliderone.webp";
-import image2 from "../hero/slidertwo.webp";
-import image3 from "../hero/silder3.webp";
+import image1 from "../hero/Slide3.webp";
+import image2 from "../hero/Slide1.webp";
+import image3 from "../hero/Slide2.webp";
 
 export { image1, image2, image3 };

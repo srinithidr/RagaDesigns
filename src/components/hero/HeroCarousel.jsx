@@ -50,14 +50,16 @@ function HeroCarousel() {
   const [activeSlide, setActiveSlide] = useState(slides[0].id);
 
   useEffect(() => {
-    const timeout = setInterval(() => {
-      const currentIndex = slides.findIndex((item) => item.id === activeSlide);
-      const nextIndex = (currentIndex + 1) % slides.length;
-      setActiveSlide(slides[nextIndex].id);
-    }, 7000);
+    const autoSlideTimer = setInterval(() => {
+      setActiveSlide((previousSlide) => {
+        const currentIndex = slides.findIndex((item) => item.id === previousSlide);
+        const nextIndex = (currentIndex + 1) % slides.length;
+        return slides[nextIndex].id;
+      });
+    }, 5000);
 
-    return () => clearInterval(timeout);
-  }, [activeSlide]);
+    return () => clearInterval(autoSlideTimer);
+  }, []);
 
   return (
     <section className="relative overflow-hidden h-[clamp(560px,80vh,920px)] max-h-[100svh] w-full bg-slate-950">

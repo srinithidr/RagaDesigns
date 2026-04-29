@@ -192,12 +192,13 @@ function Navbar() {
           <img src={logo} alt="Logo" className="h-16" />
         </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex">
-          <NavigationMenu>
-            <NavigationMenuList className="flex gap-1">
-              {navItems.map((item) => (
-                <NavigationMenuItem key={item.title}>
+        <div className="hidden md:flex items-center gap-4">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex">
+            <NavigationMenu>
+              <NavigationMenuList className="flex gap-1">
+                {navItems.map((item) => (
+                  <NavigationMenuItem key={item.title}>
                   {item.hasMegaMenu ? (
 
   <>
@@ -251,7 +252,7 @@ function Navbar() {
       </button>
 
       {/* ✅ CUSTOM DROPDOWN - Using unique class for each dropdown */}
-      <div className={`absolute left-0 top-full mt-2 hidden ${item.title.toLowerCase().replace(/\s+/g, '-')}-dropdown z-50`}>
+      <div className={`absolute left-0 top-full pt-2 hidden ${item.title.toLowerCase().replace(/\s+/g, '-')}-dropdown z-50`}>
         <div className="w-[220px] p-2 bg-white shadow-md rounded-md border">
 
           <ul className="space-y-1">
@@ -281,11 +282,19 @@ function Navbar() {
   </a>
 
 )}
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-        </nav>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+          </nav>
+
+          <a
+            href="/contact"
+            className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+          >
+            Get Started
+          </a>
+        </div>
 
         {/* Mobile Button */}
         <button
@@ -348,6 +357,12 @@ function Navbar() {
               )}
             </div>
           ))}
+          <a
+            href="/contact"
+            className="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+          >
+            Get Started
+          </a>
         </div>
       )}
     </header>
